@@ -10,7 +10,15 @@ class WorkOrder extends Model
     protected $guarded = [
         'id'
     ];
+    protected $appends = ['status'];
 
+    public function getStatusAttribute()
+    {
+        if ($this->end_at == null) {
+                return false;
+        }
+        return true;
+    }
 
     public function processType(): BelongsTo
     {
