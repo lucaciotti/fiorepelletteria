@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProcessType extends Model
 {
-    //
+    protected $guarded = [
+        'id'
+    ];
 }
