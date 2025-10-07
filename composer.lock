@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e0bf07d8dd1d7d23a2073871a859bce",
+    "content-hash": "4bf8f7d5619e857e8392e9409598bd32",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -71,6 +71,253 @@
                 "source": "https://github.com/AnourValar/eloquent-serialize/tree/1.3.4"
             },
             "time": "2025-07-30T15:45:57+00:00"
+        },
+        {
+            "name": "bezhansalleh/filament-panel-switch",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bezhanSalleh/filament-panel-switch.git",
+                "reference": "8a5ca374a771a2b78aaf0a22dab95be35a7e7d25"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bezhanSalleh/filament-panel-switch/zipball/8a5ca374a771a2b78aaf0a22dab95be35a7e7d25",
+                "reference": "8a5ca374a771a2b78aaf0a22dab95be35a7e7d25",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^4.0",
+                "illuminate/support": "^11.28|^12.0",
+                "league/uri": "^7.0",
+                "php": "^8.2",
+                "spatie/laravel-package-tools": "^1.9"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "spatie/laravel-ray": "^1.26"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "PanelSwitch": "BezhanSalleh\\PanelSwitch\\Facades\\PanelSwitch"
+                    },
+                    "providers": [
+                        "BezhanSalleh\\PanelSwitch\\PanelSwitchServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BezhanSalleh\\PanelSwitch\\": "src/",
+                    "BezhanSalleh\\PanelSwitch\\Database\\Factories\\": "database/factories/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bezhan Salleh",
+                    "email": "bezhan_salleh@yahoo.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easily Switch between your Filament Panels",
+            "homepage": "https://github.com/bezhansalleh/filament-panel-switch",
+            "keywords": [
+                "bezhanSalleh",
+                "filament",
+                "filament-panel-switch",
+                "panel-changer",
+                "panel-navigation",
+                "panel-switch"
+            ],
+            "support": {
+                "issues": "https://github.com/bezhansalleh/filament-panel-switch/issues",
+                "source": "https://github.com/bezhansalleh/filament-panel-switch"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/bezhanSalleh",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-08-19T23:46:20+00:00"
+        },
+        {
+            "name": "bezhansalleh/filament-plugin-essentials",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bezhanSalleh/filament-plugin-essentials.git",
+                "reference": "fb4656c661270133b1b1c4297616745e4d586ca7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bezhanSalleh/filament-plugin-essentials/zipball/fb4656c661270133b1b1c4297616745e4d586ca7",
+                "reference": "fb4656c661270133b1b1c4297616745e4d586ca7",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^4.0",
+                "illuminate/contracts": "^11.28|^12.0",
+                "php": "^8.2",
+                "spatie/laravel-package-tools": "^1.9"
+            },
+            "require-dev": {
+                "larastan/larastan": "^2.9||^3.0",
+                "laravel/pint": "^1.14",
+                "nunomaduro/collision": "^8.1.1||^7.10.0",
+                "orchestra/testbench": "^10.0.0||^9.0.0",
+                "pestphp/pest": "^3.0",
+                "pestphp/pest-plugin-arch": "^3.0",
+                "pestphp/pest-plugin-laravel": "^3.0",
+                "pestphp/pest-plugin-type-coverage": "^3.5",
+                "phpstan/extension-installer": "^1.3||^2.0",
+                "phpstan/phpstan-deprecation-rules": "^1.1||^2.0",
+                "phpstan/phpstan-phpunit": "^1.3||^2.0",
+                "rector/rector": "^2.1",
+                "spatie/laravel-ray": "^1.40"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BezhanSalleh\\PluginEssentials\\PluginEssentialsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BezhanSalleh\\PluginEssentials\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bezhan Salleh",
+                    "email": "bezhan_salleh@yahoo.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A collection of essential traits that streamline Filament plugin development by taking care of the boilerplate, so you can focus on shipping real features faster",
+            "homepage": "https://github.com/bezhansalleh/filament-plugin-essentials",
+            "keywords": [
+                "Bezhan Salleh",
+                "filament-plugin-essentials",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/bezhanSalleh/filament-plugin-essentials/issues",
+                "source": "https://github.com/bezhanSalleh/filament-plugin-essentials/tree/1.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/bezhanSalleh",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-08-31T06:50:44+00:00"
+        },
+        {
+            "name": "bezhansalleh/filament-shield",
+            "version": "4.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bezhanSalleh/filament-shield.git",
+                "reference": "1c7b21dbac1e80bb05a409c9b13926c13ff210ab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bezhanSalleh/filament-shield/zipball/1c7b21dbac1e80bb05a409c9b13926c13ff210ab",
+                "reference": "1c7b21dbac1e80bb05a409c9b13926c13ff210ab",
+                "shasum": ""
+            },
+            "require": {
+                "bezhansalleh/filament-plugin-essentials": "^1.0",
+                "filament/filament": "^4.0",
+                "illuminate/contracts": "^11.28|^12.0",
+                "illuminate/support": "*",
+                "php": "^8.2",
+                "spatie/laravel-package-tools": "^1.9",
+                "spatie/laravel-permission": "^6.0"
+            },
+            "require-dev": {
+                "larastan/larastan": "^2.2|^3.0",
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^7.0|^8.0",
+                "orchestra/testbench": "^8.0|^9.0|^10.0",
+                "pestphp/pest": "^2.0|^3.0",
+                "pestphp/pest-plugin-laravel": "^2.0|^3.0",
+                "pestphp/pest-plugin-livewire": "^3.0",
+                "pestphp/pest-plugin-type-coverage": "^3.5",
+                "phpstan/extension-installer": "^1.4",
+                "phpstan/phpstan": "^2.1",
+                "phpstan/phpstan-deprecation-rules": "^2.0",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "phpunit/phpunit": "^10.1|^11.0",
+                "rector/rector": "^2.1",
+                "spatie/laravel-ray": "^1.40"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "FilamentShield": "BezhanSalleh\\FilamentShield\\Facades\\FilamentShield"
+                    },
+                    "providers": [
+                        "BezhanSalleh\\FilamentShield\\FilamentShieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BezhanSalleh\\FilamentShield\\": "src",
+                    "BezhanSalleh\\FilamentShield\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bezhan Salleh",
+                    "email": "bezhan_salleh@yahoo.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Filament support for `spatie/laravel-permission`.",
+            "homepage": "https://github.com/bezhansalleh/filament-shield",
+            "keywords": [
+                "acl",
+                "bezhanSalleh",
+                "filament",
+                "filament-shield",
+                "laravel",
+                "permission",
+                "permissions",
+                "rbac",
+                "roles",
+                "security"
+            ],
+            "support": {
+                "issues": "https://github.com/bezhanSalleh/filament-shield/issues",
+                "source": "https://github.com/bezhanSalleh/filament-shield/tree/4.0.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/bezhanSalleh",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-09-11T02:13:12+00:00"
         },
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1501,6 +1748,69 @@
             "time": "2023-10-12T05:21:21+00:00"
         },
         {
+            "name": "gboquizosanchez/filament-log-viewer",
+            "version": "2.1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gboquizosanchez/filament-log-viewer.git",
+                "reference": "d1ea88c68333e5ae5b9438b041eb22b28898253f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gboquizosanchez/filament-log-viewer/zipball/d1ea88c68333e5ae5b9438b041eb22b28898253f",
+                "reference": "d1ea88c68333e5ae5b9438b041eb22b28898253f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-zip": "*",
+                "owenvoke/blade-fontawesome": "^2.9",
+                "php": "^8.3|^8.4"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.64",
+                "hermes/dependencies": "^1.1",
+                "larastan/larastan": "^2.9",
+                "orchestra/testbench": "^9.1",
+                "pestphp/pest": "^3.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Boquizo\\FilamentLogViewer\\FilamentLogViewerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Boquizo\\FilamentLogViewer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Germán Boquizo Sánchez",
+                    "email": "germanboquizosanchez@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Filament Log Viewer",
+            "homepage": "https://github.com/gboquizosanchez",
+            "keywords": [
+                "filament",
+                "laravel",
+                "log-viewer"
+            ],
+            "support": {
+                "issues": "https://github.com/gboquizosanchez/filament-log-viewer/issues",
+                "source": "https://github.com/gboquizosanchez/filament-log-viewer/tree/2.1.5"
+            },
+            "time": "2025-09-04T17:11:33+00:00"
+        },
+        {
             "name": "graham-campbell/result-type",
             "version": "v1.1.3",
             "source": {
@@ -2035,6 +2345,73 @@
                 "source": "https://github.com/kirschbaum-development/eloquent-power-joins/tree/4.2.8"
             },
             "time": "2025-08-14T18:43:05+00:00"
+        },
+        {
+            "name": "lab404/laravel-impersonate",
+            "version": "1.7.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/404labfr/laravel-impersonate.git",
+                "reference": "5033f3433a55ca8bb2cc3e4a018a39dd8a327a9f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/404labfr/laravel-impersonate/zipball/5033f3433a55ca8bb2cc3e4a018a39dd8a327a9f",
+                "reference": "5033f3433a55ca8bb2cc3e4a018a39dd8a327a9f",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^6.0 | ^7.0 | ^8.0 | ^9.0 | ^10.0 | ^11.0 | ^12.0",
+                "php": "^7.2 | ^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.3.3",
+                "orchestra/testbench": "^4.0 | ^5.0 | ^6.0 | ^7.0 | ^8.0 | ^9.0 | ^10.0",
+                "phpunit/phpunit": "^7.5 | ^8.0 | ^9.0 | ^10.0 | ^11.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Lab404\\Impersonate\\ImpersonateServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Lab404\\Impersonate\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marceau Casals",
+                    "email": "marceau@casals.fr"
+                }
+            ],
+            "description": "Laravel Impersonate is a plugin that allows to you to authenticate as your users.",
+            "keywords": [
+                "auth",
+                "impersonate",
+                "impersonation",
+                "laravel",
+                "laravel-package",
+                "laravel-plugin",
+                "package",
+                "plugin",
+                "user"
+            ],
+            "support": {
+                "issues": "https://github.com/404labfr/laravel-impersonate/issues",
+                "source": "https://github.com/404labfr/laravel-impersonate/tree/1.7.7"
+            },
+            "time": "2025-02-24T16:18:38+00:00"
         },
         {
             "name": "laravel/framework",
@@ -3978,6 +4355,66 @@
             "time": "2025-09-03T16:03:54+00:00"
         },
         {
+            "name": "owenvoke/blade-fontawesome",
+            "version": "v2.9.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/owenvoke/blade-fontawesome.git",
+                "reference": "94dcd0c78f43f8234b0d9c76c903ecd288b8b0d1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/owenvoke/blade-fontawesome/zipball/94dcd0c78f43f8234b0d9c76c903ecd288b8b0d1",
+                "reference": "94dcd0c78f43f8234b0d9c76c903ecd288b8b0d1",
+                "shasum": ""
+            },
+            "require": {
+                "blade-ui-kit/blade-icons": "^1.5",
+                "illuminate/support": "^10.34|^11.0|^12.0",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.13",
+                "orchestra/testbench": "^8.12|^9.0|^10.0",
+                "pestphp/pest": "^2.26|^3.7",
+                "phpstan/phpstan": "^1.10|^2.1",
+                "symfony/var-dumper": "^6.3|^7.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "OwenVoke\\BladeFontAwesome\\BladeFontAwesomeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "OwenVoke\\BladeFontAwesome\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A package to easily make use of Font Awesome in your Laravel Blade views",
+            "support": {
+                "issues": "https://github.com/owenvoke/blade-fontawesome/issues",
+                "source": "https://github.com/owenvoke/blade-fontawesome/tree/v2.9.1"
+            },
+            "funding": [
+                {
+                    "url": "https://ecologi.com/owenvoke?gift-trees",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/owenvoke",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-03-28T16:03:42+00:00"
+        },
+        {
             "name": "paragonie/constant_time_encoding",
             "version": "v3.1.3",
             "source": {
@@ -5203,6 +5640,89 @@
                 }
             ],
             "time": "2025-07-17T15:46:43+00:00"
+        },
+        {
+            "name": "spatie/laravel-permission",
+            "version": "6.21.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-permission.git",
+                "reference": "6a118e8855dfffcd90403aab77bbf35a03db51b3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/6a118e8855dfffcd90403aab77bbf35a03db51b3",
+                "reference": "6a118e8855dfffcd90403aab77bbf35a03db51b3",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/auth": "^8.12|^9.0|^10.0|^11.0|^12.0",
+                "illuminate/container": "^8.12|^9.0|^10.0|^11.0|^12.0",
+                "illuminate/contracts": "^8.12|^9.0|^10.0|^11.0|^12.0",
+                "illuminate/database": "^8.12|^9.0|^10.0|^11.0|^12.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "laravel/passport": "^11.0|^12.0",
+                "laravel/pint": "^1.0",
+                "orchestra/testbench": "^6.23|^7.0|^8.0|^9.0|^10.0",
+                "phpunit/phpunit": "^9.4|^10.1|^11.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\Permission\\PermissionServiceProvider"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-main": "6.x-dev",
+                    "dev-master": "6.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Spatie\\Permission\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Permission handling for Laravel 8.0 and up",
+            "homepage": "https://github.com/spatie/laravel-permission",
+            "keywords": [
+                "acl",
+                "laravel",
+                "permission",
+                "permissions",
+                "rbac",
+                "roles",
+                "security",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-permission/issues",
+                "source": "https://github.com/spatie/laravel-permission/tree/6.21.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-07-23T16:08:05+00:00"
         },
         {
             "name": "spatie/shiki-php",
@@ -7875,6 +8395,145 @@
             "time": "2024-12-21T16:25:41+00:00"
         },
         {
+            "name": "tomatophp/console-helpers",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tomatophp/console-helpers.git",
+                "reference": "69dd818a2bfa7d038467fb526be6c9b573d36a34"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tomatophp/console-helpers/zipball/69dd818a2bfa7d038467fb526be6c9b573d36a34",
+                "reference": "69dd818a2bfa7d038467fb526be6c9b573d36a34",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "TomatoPHP\\ConsoleHelpers\\ConsoleHelpersServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TomatoPHP\\ConsoleHelpers\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fady Mondy",
+                    "email": "EngFadyMondy@gmail.com"
+                }
+            ],
+            "description": "tons of helper you need for you artisan command line application",
+            "keywords": [
+                "application",
+                "artisan",
+                "command",
+                "console",
+                "helpers",
+                "line"
+            ],
+            "support": {
+                "issues": "https://github.com/tomatophp/console-helpers/issues",
+                "source": "https://github.com/tomatophp/console-helpers/tree/v1.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/3x1io",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-02-12T12:00:38+00:00"
+        },
+        {
+            "name": "tomatophp/filament-users",
+            "version": "4.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tomatophp/filament-users.git",
+                "reference": "36e9abbbda2c77cfc81e48f453c803042dcbd653"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tomatophp/filament-users/zipball/36e9abbbda2c77cfc81e48f453c803042dcbd653",
+                "reference": "36e9abbbda2c77cfc81e48f453c803042dcbd653",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^4.0",
+                "lab404/laravel-impersonate": "^1.7",
+                "php": "^8.2|^8.3|^8.4",
+                "tomatophp/console-helpers": "^1.1"
+            },
+            "require-dev": {
+                "larastan/larastan": "^2.9||^3.0",
+                "laravel/pint": "^1.14",
+                "nunomaduro/collision": "^8.1.1||^7.10.0",
+                "orchestra/testbench": "^10.0.0||^9.0.0",
+                "pestphp/pest": "^3.0",
+                "pestphp/pest-plugin-arch": "^3.0",
+                "pestphp/pest-plugin-laravel": "^3.0",
+                "pestphp/pest-plugin-livewire": "^3.0",
+                "pestphp/pest-plugin-type-coverage": "^3.5",
+                "phpstan/extension-installer": "^1.3||^2.0",
+                "phpstan/phpstan-deprecation-rules": "^1.1||^2.0",
+                "phpstan/phpstan-phpunit": "^1.3||^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "TomatoPHP\\FilamentUsers\\FilamentUsersServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TomatoPHP\\FilamentUsers\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fady Mondy",
+                    "email": "info@3x1.io"
+                }
+            ],
+            "description": "Manage your users with a highly customizable user resource for FilamentPHP with integration of filament-shield and filament-impersonate",
+            "keywords": [
+                "User management",
+                "Users",
+                "filament-impersonate",
+                "filament-shield",
+                "filamentphp",
+                "laravel",
+                "php",
+                "user CRUD",
+                "user resource"
+            ],
+            "support": {
+                "issues": "https://github.com/tomatophp/filament-users/issues",
+                "source": "https://github.com/tomatophp/filament-users/tree/v4.0.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/fadymondy",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-10-02T08:52:05+00:00"
+        },
+        {
             "name": "ueberdosis/tiptap-php",
             "version": "2.0.0",
             "source": {
@@ -8253,6 +8912,112 @@
                 }
             ],
             "time": "2025-10-06T08:26:52+00:00"
+        },
+        {
+            "name": "doctrine/dbal",
+            "version": "4.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/dbal.git",
+                "reference": "231959669bb2173194c95636eae7f1b41b2a8b19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/231959669bb2173194c95636eae7f1b41b2a8b19",
+                "reference": "231959669bb2173194c95636eae7f1b41b2a8b19",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/deprecations": "^1.1.5",
+                "php": "^8.2",
+                "psr/cache": "^1|^2|^3",
+                "psr/log": "^1|^2|^3"
+            },
+            "require-dev": {
+                "doctrine/coding-standard": "13.0.1",
+                "fig/log-test": "^1",
+                "jetbrains/phpstorm-stubs": "2023.2",
+                "phpstan/phpstan": "2.1.22",
+                "phpstan/phpstan-phpunit": "2.0.6",
+                "phpstan/phpstan-strict-rules": "^2",
+                "phpunit/phpunit": "11.5.23",
+                "slevomat/coding-standard": "8.16.2",
+                "squizlabs/php_codesniffer": "3.13.1",
+                "symfony/cache": "^6.3.8|^7.0",
+                "symfony/console": "^5.4|^6.3|^7.0"
+            },
+            "suggest": {
+                "symfony/console": "For helpful console commands such as SQL execution and import of files."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Doctrine\\DBAL\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com"
+                },
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                }
+            ],
+            "description": "Powerful PHP database abstraction layer (DBAL) with many features for database schema introspection and management.",
+            "homepage": "https://www.doctrine-project.org/projects/dbal.html",
+            "keywords": [
+                "abstraction",
+                "database",
+                "db2",
+                "dbal",
+                "mariadb",
+                "mssql",
+                "mysql",
+                "oci8",
+                "oracle",
+                "pdo",
+                "pgsql",
+                "postgresql",
+                "queryobject",
+                "sasql",
+                "sql",
+                "sqlite",
+                "sqlserver",
+                "sqlsrv"
+            ],
+            "support": {
+                "issues": "https://github.com/doctrine/dbal/issues",
+                "source": "https://github.com/doctrine/dbal/tree/4.3.3"
+            },
+            "funding": [
+                {
+                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.patreon.com/phpdoctrine",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Fdbal",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2025-09-04T23:52:42+00:00"
         },
         {
             "name": "doctrine/deprecations",
@@ -10298,6 +11063,55 @@
                 }
             ],
             "time": "2025-10-03T04:28:03+00:00"
+        },
+        {
+            "name": "psr/cache",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/cache.git",
+                "reference": "aa5030cfa5405eccfdcb1083ce040c2cb8d253bf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/cache/zipball/aa5030cfa5405eccfdcb1083ce040c2cb8d253bf",
+                "reference": "aa5030cfa5405eccfdcb1083ce040c2cb8d253bf",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Cache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for caching libraries",
+            "keywords": [
+                "cache",
+                "psr",
+                "psr-6"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/cache/tree/3.0.0"
+            },
+            "time": "2021-02-03T23:26:27+00:00"
         },
         {
             "name": "sebastian/cli-parser",

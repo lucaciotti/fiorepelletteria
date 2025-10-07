@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('work_orders', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreignId('operator_id')->nullable()->constrained();
         });
     }
 
@@ -22,6 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('work_orders');
+        Schema::table('users', function (Blueprint $table) {
+            // $table->dropForeign(['operator_id']);
+            $table->dropColumn('operator_id');
+        });
     }
 };
