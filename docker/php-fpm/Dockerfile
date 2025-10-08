@@ -6,6 +6,8 @@ FROM php:8.4-fpm AS builder
 # Node.js and asset building are handled in the Nginx stage, not here.
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
+    nodejs \
+    npm \
     unzip \
     libpq-dev \
     libonig-dev \
@@ -50,6 +52,8 @@ COPY . /var/www
 # Install Composer and dependencies
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && composer install --no-dev --optimize-autoloader --no-interaction --no-progress --prefer-dist
+
+RUN npm install && npm run build
 
 # Stage 2: Production environment
 FROM php:8.4-fpm
