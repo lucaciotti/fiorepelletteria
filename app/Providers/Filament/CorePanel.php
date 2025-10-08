@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use Filament\Enums\ThemeMode;
 use Filament\Panel;
 use Filament\Pages;
 use Filament\Widgets;
@@ -23,6 +24,7 @@ class CorePanel extends Panel
     {
         $this
             ->viteTheme('resources/css/filament/default/theme.css')
+            ->defaultThemeMode(ThemeMode::Light)
             ->brandLogo(asset('images/logo.png'))
             ->brandName('Fiore Pelletteria App')
             ->brandLogoHeight('8rem')
