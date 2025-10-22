@@ -46,7 +46,7 @@ class WorkOrdersTable
                 ->label('Stato')
                 ->boolean()
                 ->width('1%'),
-            TextColumn::make('total_hours')
+            TextColumn::make('total_minutes')
                     ->label('Ore Lavorazione')
                     ->numeric()
                     ->sortable(),
@@ -63,7 +63,7 @@ class WorkOrdersTable
                 //
             ])
             ->recordActions([
-                ViewAction::make(),
+                // ViewAction::make(),
                 EditAction::make(),
             ])
             ->toolbarActions([

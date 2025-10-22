@@ -48,7 +48,7 @@ class EditWorkOrder extends EditRecord
     protected function mutateFormDataBeforeSave(array $data): array
     {
         if ($data['end_at'] != null) {
-            $data['total_hours'] = round(Carbon::createFromDate($data['start_at'])->diffInHours(Carbon::createFromDate($data['end_at'])), 1);
+            $data['total_minutes'] = round(Carbon::createFromDate($data['start_at'])->diffInMinutes(Carbon::createFromDate($data['end_at'])), 0);
         }
         return $data;
     }

@@ -64,20 +64,20 @@ class WorkOrderForm
                             ->relationship('processType', 'name')
                             ->searchable()
                             ->preload()
-                            ->required()
-                            ->createOptionForm([
-                                TextInput::make('code')
-                                    ->label('Codice Lavorazione')
-                                    ->required()
-                                    ->maxLength(255),
-                                TextInput::make('name')
-                                    ->label('Nome Lavorazione')
-                                    ->required()
-                                    ->maxLength(255),
-                                TextInput::make('description')
-                                    ->label('Descrizione')
-                                    ->maxLength(255),
-                            ]),
+                            ->required(),
+                            // ->createOptionForm([
+                            //     TextInput::make('code')
+                            //         ->label('Codice Lavorazione')
+                            //         ->required()
+                            //         ->maxLength(255),
+                            //     TextInput::make('name')
+                            //         ->label('Nome Lavorazione')
+                            //         ->required()
+                            //         ->maxLength(255),
+                            //     TextInput::make('description')
+                            //         ->label('Descrizione')
+                            //         ->maxLength(255),
+                            // ]),
                         Select::make('product_id')
                             ->label('Prodotto')
                             ->relationship('product', 'code')
@@ -94,7 +94,8 @@ class WorkOrderForm
                                     ->maxLength(255),
                             ]),
                         TextInput::make('quantity')
-                            ->required()
+                            ->required(fn(Get $get) => $get('start_at') !== null && $get('end_at') !== null)
+                            ->visible(fn(Get $get) => $get('start_at') !== null)
                             ->numeric(),
                     ]),
                 Fieldset::make('Tempi di produzione')->columns(3)
@@ -105,9 +106,10 @@ class WorkOrderForm
                             ->readOnly(),
                         DateTimePicker::make('end_at')
                             ->label('Ora fine lavorazione')
+                            ->after('start_at')
                             ->seconds(false)
                             ->readOnly(),
-                        TextInput::make('total_hours')
+                        TextInput::make('total_minutes')
                             ->label('Totale ore lavorazione')
                             ->numeric(),
                     ]),

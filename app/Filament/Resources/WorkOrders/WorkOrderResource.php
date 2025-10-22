@@ -35,10 +35,10 @@ class WorkOrderResource extends Resource
         return WorkOrderForm::configure($schema);
     }
 
-    public static function infolist(Schema $schema): Schema
-    {
-        return WorkOrderInfolist::configure($schema);
-    }
+    // public static function infolist(Schema $schema): Schema
+    // {
+    //     return WorkOrderInfolist::configure($schema);
+    // }
 
     public static function table(Table $table): Table
     {
@@ -57,7 +57,7 @@ class WorkOrderResource extends Resource
         return [
             'index' => ListWorkOrders::route('/'),
             'create' => CreateWorkOrder::route('/create'),
-            'view' => ViewWorkOrder::route('/{record}'),
+            // 'view' => ViewWorkOrder::route('/{record}'),
             'edit' => EditWorkOrder::route('/{record}/edit'),
         ];
     }

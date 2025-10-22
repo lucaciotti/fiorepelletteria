@@ -24,7 +24,7 @@ class WorkOrderInfolist
                 TextEntry::make('end_at')
                     ->dateTime()
                     ->placeholder('-'),
-                TextEntry::make('total_hours')
+                TextEntry::make('total_minutes')
                     ->numeric()
                     ->placeholder('-'),
                 TextEntry::make('created_at')
