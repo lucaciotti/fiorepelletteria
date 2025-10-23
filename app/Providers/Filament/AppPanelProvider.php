@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use Filament\Panel;
+use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Pages;
 use Filament\PanelProvider;
 use App\Providers\Filament\Traits\HasCorePanel;
@@ -20,6 +21,9 @@ class AppPanelProvider extends PanelProvider
             ->path('')
             ->pages([
                 Pages\Dashboard::class,
+            ])
+            ->plugins([
+                // \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
             ])
             // ->navigationGroups([
             //     NavigationGroup::make()

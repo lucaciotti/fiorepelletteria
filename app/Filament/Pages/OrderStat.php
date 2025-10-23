@@ -5,10 +5,14 @@ namespace App\Filament\Pages;
 use BackedEnum;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
+use Auth;
+use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use UnitEnum;
 
 class OrderStat extends Page
 {
+
+    use HasPageShield;
 
     protected string $view = 'filament.pages.order-stat';
 
@@ -18,5 +22,10 @@ class OrderStat extends Page
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
    
     public static ?string $title = 'Statistiche Ordini';
+
+    // public static function canAccess(): bool
+    // {
+    //     return Auth::user()->hasRole('admin') || Auth::user()->hasRole('super_admin');
+    // }
 
 }

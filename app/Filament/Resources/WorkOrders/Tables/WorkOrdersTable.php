@@ -16,6 +16,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Malzariey\FilamentDaterangepickerFilter\Filters\DateRangeFilter;
 use pxlrbt\FilamentExcel\Actions\ExportAction;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
@@ -25,6 +26,11 @@ class WorkOrdersTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort(function (Builder $query): Builder {
+                return $query
+                    ->orderBy('ord_num', 'desc')
+                    ->orderBy('start_at', 'desc');
+            })
             ->columns([
                 TextColumn::make('ord_num')
                     ->label('Commessa')

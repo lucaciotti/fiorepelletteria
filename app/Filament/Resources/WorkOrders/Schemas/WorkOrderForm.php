@@ -12,7 +12,7 @@ use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
 class WorkOrderForm
 {
@@ -93,7 +93,7 @@ class WorkOrderForm
                                     ->label('Descrizione')
                                     ->maxLength(255),
                             ]),
-                        TextInput::make('quantity')
+                        TextInput::make('quantity')->label('Quantità')
                             ->required(fn(Get $get) => $get('start_at') !== null && $get('end_at') !== null)
                             ->visible(fn(Get $get) => $get('start_at') !== null)
                             ->numeric(),
@@ -103,12 +103,12 @@ class WorkOrderForm
                         DateTimePicker::make('start_at')
                             ->label('Ora inizio lavorazione')
                             ->seconds(false)
-                            ->readOnly(),
+                            ->readOnly((fn(Get $get) => !Auth::user()->hasRole('admin') && !Auth::user()->hasRole('super_admin'))),
                         DateTimePicker::make('end_at')
                             ->label('Ora fine lavorazione')
                             ->after('start_at')
                             ->seconds(false)
-                            ->readOnly(),
+                            ->readOnly(fn(Get $get) => !Auth::user()->hasRole('admin') && !Auth::user()->hasRole('super_admin')),
                         TextInput::make('total_minutes')
                             ->label('Totale ore lavorazione')
                             ->numeric(),
