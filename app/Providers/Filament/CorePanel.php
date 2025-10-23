@@ -16,6 +16,7 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Support\Enums\Width;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 
 class CorePanel extends Panel
@@ -31,6 +32,7 @@ class CorePanel extends Panel
             ->sidebarCollapsibleOnDesktop()
             ->unsavedChangesAlerts()
             ->databaseNotifications(isLazy: true)
+            ->maxContentWidth(Width::Full)
             ->login()
             ->colors([
                 'primary' => Color::Red,
