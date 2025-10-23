@@ -30,7 +30,7 @@ RUN docker-php-ext-install -j$(nproc) \
     mbstring \
     gd
 RUN pecl install redis \
-    && docker-php-ext-enable redis \
+    && docker-php-ext-enable redis
 RUN apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Set the working directory inside the container
