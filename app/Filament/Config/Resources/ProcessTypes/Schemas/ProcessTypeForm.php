@@ -2,6 +2,7 @@
 
 namespace App\Filament\Config\Resources\ProcessTypes\Schemas;
 
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -11,11 +12,22 @@ class ProcessTypeForm
     {
         return $schema
             ->components([
-                TextInput::make('code')
+                TextInput::make('code')->label('Codice')
                     ->required(),
-                TextInput::make('name')
+                TextInput::make('name')->label('Nome')
                     ->required(),
-                TextInput::make('description')
+                Select::make('process_type_category_id')
+                    ->label('Categoria di Lavorazione')
+                    ->relationship('category', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->createOptionForm([
+                        TextInput::make('name')
+                            ->label('Nome Categoria')
+                            ->required()
+                            ->maxLength(255),
+                    ]),
+                TextInput::make('description')->label('Descrizione')
                     ->required(),
             ]);
     }

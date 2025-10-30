@@ -53,7 +53,7 @@ class ProcessTypeResource extends Resource
         return [
             'index' => ListProcessTypes::route('/'),
             // 'create' => CreateProcessType::route('/create'),
-            'view' => ViewProcessType::route('/{record}'),
+            // 'view' => ViewProcessType::route('/{record}'),
             // 'edit' => EditProcessType::route('/{record}/edit'),
         ];
     }
