@@ -13,6 +13,6 @@ class ProcessType extends Model
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(ProcessTypeCategory::class);
+        return $this->belongsTo(ProcessTypeCategory::class, 'process_type_category_id', 'id');
     }
 }
