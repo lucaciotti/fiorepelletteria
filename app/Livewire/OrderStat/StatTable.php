@@ -31,6 +31,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Malzariey\FilamentDaterangepickerFilter\Filters\DateRangeFilter;
 use pxlrbt\FilamentExcel\Actions\ExportAction;
@@ -58,28 +59,17 @@ class StatTable extends Component implements HasActions, HasSchemas, HasTable
 
         $records = $this->_buildRecords($originalGroupColumns);
         $columns = $this->_buildColumns($originalGroupColumns);
-        // dd($records);
+        
         $table
-        ->records(fn(?string $search): Collection => $records
-                ->when(
-                    filled($search),
-                    fn(Collection $data): Collection => $data->filter(
-                        fn(array $record): bool => 
-                        // (str_contains(Str::lower($record['ord_num']), Str::lower($search))) ||
-                        // (str_contains(Str::lower($record['customer']), Str::lower($search))) ||
-                        // (str_contains(Str::lower($record['operator']), Str::lower($search))) ||
-                        // (str_contains(Str::lower($record['product']), Str::lower($search))) ||
-                        (str_contains(Str::lower($record['processType']), Str::lower($search))),
-                    ),
-                )
-        )->recordClasses(fn($record) => match ($record['lvl']) {
+        ->records(fn(): Collection => $records)
+        ->recordClasses(fn($record) => match ($record['lvl']) {
             1 => 'row-group-lvl-1',
             2 => 'row-group-lvl-2',
             3 => 'row-group-lvl-3',
             4 => 'row-group-lvl-4',
             5 => 'row-group-lvl-5',
             default => null,
-    })
+        })
         ->columns($columns)
         ->filters([
         ], layout: FiltersLayout::Modal)->filtersTriggerAction(
@@ -88,7 +78,6 @@ class StatTable extends Component implements HasActions, HasSchemas, HasTable
                 ->slideOver()
                 ->label(__('Filter')),
         )
-        ->deferFilters(false)
         ->headerActions([
         ])
         ->recordActions([
@@ -123,7 +112,14 @@ class StatTable extends Component implements HasActions, HasSchemas, HasTable
         $operators = Session::get('orderstat.form.filter.operators') ?? [];
 
         $lvl = (count($groupColumns) == count($originalGroupColumns)) ? 99 : count($groupColumns);
-        $records = WorkOrder::selectRaw(implode(', ', $groupColumns) . ', ' . $lvl . ' as lvl, SUM(quantity) as quantity, SUM(total_minutes) as total_minutes, MIN(created_at) as created_at, MAX(end_at) as end_at')
+        // $records = WorkOrder::selectRaw(implode(', ', $groupColumns) . ', ' . $lvl . ' as lvl, SUM(quantity) as quantity, SUM(total_minutes) as total_minutes, MIN(created_at) as created_at, MAX(end_at) as end_at')
+        
+        $records =  DB::table('work_orders')
+            ->leftjoin('orders', 'orders.id', '=', 'work_orders.order_id')
+            ->leftjoin('customers', 'customers.id', '=', 'orders.customer_id')
+            ->leftjoin('order_rows', 'order_rows.id', '=', 'work_orders.order_row_id')
+            ->leftjoin('products', 'products.id', '=', 'order_rows.product_id')
+            ->selectRaw(implode(', ', $groupColumns) . ', ' . $lvl . ' as lvl, SUM(work_orders.quantity) as quantity, SUM(total_minutes) as total_minutes, MIN(work_orders.created_at) as created_at, MAX(work_orders.end_at) as end_at')
             ->where('end_at', '!=', null);
         if (!empty($products)){
             $records->whereIn('product_id', $products);
@@ -135,9 +131,15 @@ class StatTable extends Component implements HasActions, HasSchemas, HasTable
             $records->whereIn('operator_id', $operators);
         }
         $records = $records->groupBy($groupColumns)
-            ->get()
-            ->toArray();
-        return $records;
+            ->get();
+        // ->toArray();
+
+        $data = collect($records)->map(function ($x) {
+            return (array) $x;
+        })->toArray();
+
+        // dd($data[0]['customer_id']);
+        return $data;
     }
 
     protected function _buildColumns($originalGroupColumns): array
@@ -181,8 +183,8 @@ class StatTable extends Component implements HasActions, HasSchemas, HasTable
                 case 'product_id':
                     $state = $state . 'Prodotto';
                     break;
-                case 'ord_num':
-                    $state = $state . 'Commessa';
+                case 'number':
+                    $state = $state . 'n.Ord.';
                     break;
                 default:
                     $state = $state . $groupColumns[0];
@@ -201,8 +203,8 @@ class StatTable extends Component implements HasActions, HasSchemas, HasTable
 
         foreach ($originalGroupColumns as $value) {
             switch ($value) {
-                case 'ord_num':
-                    array_push($columnsGroup, TextColumn::make('ord_num')->label('Commessa'));
+                case 'number':
+                    array_push($columnsGroup, TextColumn::make('number')->label('n.Ord.'));
                     break;
                 case 'process_type_id':
                     array_push($columnsGroup, TextColumn::make('processType')->label('Lavorazione')

@@ -56,10 +56,10 @@ class FormChoice extends Component implements HasActions, HasSchemas
                     Select::make('groupType')
                     ->hiddenLabel(true)
                     ->options([
-                        'customer_id-ord_num-product_id-process_type_id-operator_id' => 'Cliente -> Commessa -> Prodotto -> Lavorazioni -> Operatore',
-                        'customer_id-ord_num-product_id-process_type_id' => 'Cliente -> Commessa -> Prodotto -> Lavorazioni ',
-                        'customer_id-ord_num-product_id' => 'Cliente -> Commessa -> Prodotto',
-                        'customer_id-ord_num' => 'Cliente -> Commessa',
+                        'customer_id-number-product_id-process_type_id-operator_id' => 'Cliente -> n.Ord. -> Prodotto -> Lavorazioni -> Operatore',
+                        'customer_id-number-product_id-process_type_id' => 'Cliente -> n.Ord. -> Prodotto -> Lavorazioni ',
+                        'customer_id-number-product_id' => 'Cliente -> n.Ord. -> Prodotto',
+                        'customer_id-number' => 'Cliente -> n.Ord.',
                         'product_id-process_type_id-operator_id' => 'Prodotto -> Lavorazioni -> Operatore',
                         'product_id-process_type_id' => 'Prodotto -> Lavorazioni ',
                     ])
