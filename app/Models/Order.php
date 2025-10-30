@@ -25,6 +25,11 @@ class Order extends Model
         return 'Ord. n.'.$this->number . ' del ' . (new Carbon($this->date))->format('d/m/Y') . ' - Cliente: ' . $this->customer->name;
     }
 
+    public function getCountProductAttribute()
+    {
+        return count($this->rows);
+    }
+
 
     public function customer(): BelongsTo
     {

@@ -15,13 +15,16 @@ class OrdersTable
     {
         return $table
             ->columns([
-                TextColumn::make('number')
+                TextColumn::make('number')->label('n. Ordine')
                     ->searchable(),
-                TextColumn::make('customer.name')
+                TextColumn::make('customer.name')->label('Cliente')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('date')
+                TextColumn::make('date')->label('Data Ordine')
                     ->dateTime('d/m/Y')
+                    ->sortable(),
+                TextColumn::make('count_product')->label('Numero Prodotti')
+                    ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()

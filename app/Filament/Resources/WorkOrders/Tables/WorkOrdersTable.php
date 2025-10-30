@@ -32,6 +32,20 @@ class WorkOrdersTable
                     ->orderBy('start_at', 'desc');
             })
             ->columns([
+                IconColumn::make('status')
+                    ->label('Stato')
+                    ->icon(fn(string $state): Heroicon => match ($state) {
+                        'started' => Heroicon::OutlinedPlayCircle,
+                        'paused' => Heroicon::OutlinedPauseCircle,
+                        'ended' => Heroicon::OutlinedCheckCircle,
+                    })
+                    ->color(fn (string $state): string => match ($state) {
+                        'started' => 'danger',
+                        'paused' => 'warning',
+                        'ended' => 'success',
+                        default => 'gray',
+                    })
+                    ->width('1%'),
                 TextColumn::make('ordrif')
                     ->label('Ordine Cliente')
                     ->sortable()
@@ -62,20 +76,6 @@ class WorkOrdersTable
                 TextColumn::make('end_at')
                     ->dateTime()
                     ->sortable()->toggleable(isToggledHiddenByDefault: true),
-                IconColumn::make('status')
-                    ->label('Stato')
-                    ->icon(fn(string $state): Heroicon => match ($state) {
-                        'started' => Heroicon::OutlinedPlayCircle,
-                        'paused' => Heroicon::OutlinedPauseCircle,
-                        'ended' => Heroicon::OutlinedCheckCircle,
-                    })
-                    ->color(fn (string $state): string => match ($state) {
-                        'started' => 'danger',
-                        'paused' => 'warning',
-                        'ended' => 'success',
-                        default => 'gray',
-                    })
-                    ->width('1%'),
                 TextColumn::make('total_minutes')
                     ->label('Tempo Lavorazione (min.)')
                     ->numeric()
