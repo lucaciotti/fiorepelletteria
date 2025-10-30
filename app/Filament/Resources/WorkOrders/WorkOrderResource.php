@@ -6,6 +6,7 @@ use App\Filament\Resources\WorkOrders\Pages\CreateWorkOrder;
 use App\Filament\Resources\WorkOrders\Pages\EditWorkOrder;
 use App\Filament\Resources\WorkOrders\Pages\ListWorkOrders;
 use App\Filament\Resources\WorkOrders\Pages\ViewWorkOrder;
+use App\Filament\Resources\WorkOrders\RelationManagers\RecordTimeRelationManager;
 use App\Filament\Resources\WorkOrders\Schemas\WorkOrderForm;
 use App\Filament\Resources\WorkOrders\Schemas\WorkOrderInfolist;
 use App\Filament\Resources\WorkOrders\Tables\WorkOrdersTable;
@@ -24,11 +25,11 @@ class WorkOrderResource extends Resource
     protected static ?string $model = WorkOrder::class;
     
     protected static string | UnitEnum | null $navigationGroup = 'Ordini';
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentCheck;
 
-    protected static ?string $recordTitleAttribute = 'ord_num';
+    protected static ?string $recordTitleAttribute = 'fulldescr';
     protected static ?string $modelLabel = 'ordine lavorazione';
     protected static ?string $pluralModelLabel = 'ordini lavorazione';
 
@@ -50,7 +51,7 @@ class WorkOrderResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            // RecordTimeRelationManager::class,
         ];
     }
 

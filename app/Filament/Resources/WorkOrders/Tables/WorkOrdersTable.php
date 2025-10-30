@@ -11,6 +11,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\FiltersLayout;
@@ -28,24 +29,28 @@ class WorkOrdersTable
         return $table
             ->defaultSort(function (Builder $query): Builder {
                 return $query
-                    ->orderBy('ord_num', 'desc')
                     ->orderBy('start_at', 'desc');
             })
             ->columns([
-                TextColumn::make('ord_num')
-                    ->label('Commessa')
+                TextColumn::make('ordrif')
+                    ->label('Ordine Cliente')
+                    ->sortable()
                     ->searchable(),
                 TextColumn::make('processType.name')
                     ->label('Tipo Lavorazione')
+                    ->sortable()
                     ->searchable(),
                 TextColumn::make('operator.name')
                     ->label('Operatore')
+                    ->sortable()
                     ->searchable(),
                 TextColumn::make('customer.name')
                     ->label('Cliente')
+                    ->sortable()
                     ->searchable(),
-                TextColumn::make('product.id')
+                TextColumn::make('product.code')
                     ->label('Prodotto')
+                    ->sortable()
                     ->searchable(),
                 TextColumn::make('quantity')
                     ->label('Qta')
@@ -59,7 +64,17 @@ class WorkOrdersTable
                     ->sortable()->toggleable(isToggledHiddenByDefault: true),
                 IconColumn::make('status')
                     ->label('Stato')
-                    ->boolean()
+                    ->icon(fn(string $state): Heroicon => match ($state) {
+                        'started' => Heroicon::OutlinedPlayCircle,
+                        'paused' => Heroicon::OutlinedPauseCircle,
+                        'ended' => Heroicon::OutlinedCheckCircle,
+                    })
+                    ->color(fn (string $state): string => match ($state) {
+                        'started' => 'danger',
+                        'paused' => 'warning',
+                        'ended' => 'success',
+                        default => 'gray',
+                    })
                     ->width('1%'),
                 TextColumn::make('total_minutes')
                     ->label('Tempo Lavorazione (min.)')
@@ -77,20 +92,26 @@ class WorkOrdersTable
             ->filters([
                 DateRangeFilter::make('start_at')->label('Data inizio lavorazione'),
                 DateRangeFilter::make('end_at')->label('Data inizio lavorazione'),
-                SelectFilter::make('customer_id')->label('Clienti')
-                    ->options(fn(): array => Customer::query()->pluck('name', 'id')->all()),
+                SelectFilter::make('customer')->label('Clienti')
+                    ->relationship('customer', 'name')
+                    ->searchable()
+                    ->preload(),
                 SelectFilter::make('operator_id')->label('Operatore')
+                    ->searchable()
                     ->options(fn(): array => Operator::query()->pluck('name', 'id')->all()),
-                SelectFilter::make('product_id')->label('Prodotto')
-                    ->options(fn(): array => Product::query()->pluck('code', 'id')->all()),
+                SelectFilter::make('product')->label('Prodotto')
+                    ->relationship('product', 'code')
+                    ->searchable()
+                    ->preload(),
                 SelectFilter::make('process_type_id')->label('Lavorazione')
+                    ->searchable()
                     ->options(fn(): array => ProcessType::query()->pluck('code', 'id')->all()),
             ], layout: FiltersLayout::Modal)->filtersTriggerAction(
                 fn(Action $action) => $action
                     ->button()
                     ->slideOver()
                     ->label(__('Filter')),
-            )
+            )->deferFilters(false)
             ->recordActions([
                 // ViewAction::make()->slideOver(),
                 EditAction::make(),

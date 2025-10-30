@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\WorkOrders\Pages;
 
 use App\Filament\Resources\WorkOrders\WorkOrderResource;
+use App\Models\WorkOrdersRecordTime;
 use Carbon\Carbon;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
@@ -47,8 +48,17 @@ class EditWorkOrder extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
+        // dd($this);  
         if ($data['end_at'] != null) {
-            $data['total_minutes'] = round(Carbon::createFromDate($data['start_at'])->diffInMinutes(Carbon::createFromDate($data['end_at'])), 0);
+            $total_minutes = 0;
+            foreach ($this->data['recordsTime'] as $deltatime) {
+                if(!empty($deltatime['total_minutes'])){
+                    $total_minutes += $deltatime['total_minutes'];
+                } else {
+                    $total_minutes += round(Carbon::createFromDate($deltatime['start_at'])->diffInMinutes(Carbon::createFromDate($deltatime['end_at'])), 0);
+                }
+            }
+            $data['total_minutes'] = $total_minutes;
         }
         return $data;
     }
