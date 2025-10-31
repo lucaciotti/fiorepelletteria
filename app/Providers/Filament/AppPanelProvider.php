@@ -20,7 +20,7 @@ class AppPanelProvider extends PanelProvider
             ->id('app')
             ->path('')
             ->pages([
-                Pages\Dashboard::class,
+                // Pages\Dashboard::class,
             ])
             ->plugins([
                 // \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
