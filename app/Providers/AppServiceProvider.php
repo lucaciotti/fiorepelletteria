@@ -32,6 +32,16 @@ class AppServiceProvider extends ServiceProvider
             // $panelSwitch->modalHeading('Available Panels');
             $panelSwitch->simple();
             $panelSwitch->renderHook(PanelsRenderHook::USER_MENU_BEFORE);
+            $panelSwitch->labels([
+                'app' => "Home",
+                'admin' => 'Main',
+                'config' => "Configurazioni",
+            ]);
+            if(auth()->user() && !auth()->user()->hasRole('admin') && !auth()->user()->hasRole('super_admin')){
+                $panelSwitch->panels(['app']);
+            } else {
+                $panelSwitch->panels(['app', 'admin', 'config']);
+            }
             // $panelSwitch->renderHook(PanelsRenderHook::USER_MENU_AFTER);
             // $panelSwitch->modalWidth('sm');
             // $panelSwitch->icons([
