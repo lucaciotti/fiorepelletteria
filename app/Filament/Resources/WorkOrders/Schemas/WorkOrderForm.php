@@ -52,7 +52,7 @@ class WorkOrderForm
                         ->required(),
                     Select::make('process_type_id')
                         ->label('Tipo Lavorazione')
-                        ->relationship('processType', 'name')
+                        ->relationship('processType', 'description')
                         ->searchable()
                         ->preload()
                         ->required(),
@@ -86,7 +86,6 @@ class WorkOrderForm
                                     ->readOnly((fn(Get $get) => !Auth::user()->hasRole('admin') && !Auth::user()->hasRole('super_admin'))),
                                 DateTimePicker::make('end_at')
                                     ->label('Ora fine lavorazione')
-                                    ->after('start_at')
                                     ->seconds(false)
                                     ->readOnly(fn(Get $get) => !Auth::user()->hasRole('admin') && !Auth::user()->hasRole('super_admin')),
                             ])

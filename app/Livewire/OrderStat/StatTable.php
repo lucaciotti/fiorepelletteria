@@ -209,7 +209,7 @@ class StatTable extends Component implements HasActions, HasSchemas, HasTable
                 case 'process_type_id':
                     array_push($columnsGroup, TextColumn::make('processType')->label('Lavorazione')
                         ->state(function ($record) {
-                            return ProcessType::find($record['process_type_id'] ?? null)->name ?? '';
+                            return ProcessType::find($record['process_type_id'] ?? null)->description ?? '';
                         }));
                     break;
                 case 'customer_id':
