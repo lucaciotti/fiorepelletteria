@@ -29,7 +29,7 @@ class WorkOrderResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentCheck;
 
-    protected static ?string $recordTitleAttribute = 'fulldescr';
+    protected static ?string $recordTitleAttribute = '';
     protected static ?string $modelLabel = 'ordine lavorazione';
     protected static ?string $pluralModelLabel = 'ordini lavorazione';
 
