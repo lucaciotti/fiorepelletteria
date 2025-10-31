@@ -8,6 +8,7 @@ use Filament\Pages;
 use Filament\PanelProvider;
 use App\Providers\Filament\Traits\HasCorePanel;
 use Filament\Navigation\NavigationGroup;
+use TomatoPHP\FilamentPWA\FilamentPWAPlugin;
 
 class AppPanelProvider extends PanelProvider
 {
@@ -23,7 +24,7 @@ class AppPanelProvider extends PanelProvider
                 // Pages\Dashboard::class,
             ])
             ->plugins([
-                // \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
+                FilamentPWAPlugin::make()->allowPWASettings(false),
             ])
             // ->navigationGroups([
             //     NavigationGroup::make()

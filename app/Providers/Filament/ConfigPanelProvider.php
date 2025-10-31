@@ -5,6 +5,7 @@ namespace App\Providers\Filament;
 use Filament\Panel;
 use Filament\PanelProvider;
 use App\Providers\Filament\Traits\HasCorePanel;
+use TomatoPHP\FilamentPWA\FilamentPWAPlugin;
 
 class ConfigPanelProvider extends PanelProvider
 {
@@ -17,6 +18,7 @@ class ConfigPanelProvider extends PanelProvider
             ->path('config')
             ->plugins([
                 \TomatoPHP\FilamentUsers\FilamentUsersPlugin::make(),
+                FilamentPWAPlugin::make()->allowPWASettings(true),
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
                 \Boquizo\FilamentLogViewer\FilamentLogViewerPlugin::make()
                     ->navigationGroup('System')
