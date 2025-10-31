@@ -21,12 +21,16 @@ use Illuminate\Database\Eloquent\Builder;
 use Malzariey\FilamentDaterangepickerFilter\Filters\DateRangeFilter;
 use pxlrbt\FilamentExcel\Actions\ExportAction;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
+use Auth;
 
 class WorkOrdersTable
 {
     public static function configure(Table $table): Table
     {
-        return $table
+        if (!Auth::user()->hasRole('admin') && !Auth::user()->hasRole('super_admin')){
+            $table->modifyQueryUsing(fn(Builder $query) => $query->where('operator_id', Auth::user()->operator_id));
+        }
+        return $table            
             ->defaultSort(function (Builder $query): Builder {
                 return $query
                     ->orderBy('start_at', 'desc');
