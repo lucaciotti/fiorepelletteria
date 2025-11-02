@@ -105,6 +105,7 @@ RUN sed -i '/\[www\]/a pm.status_path = /status' /usr/local/etc/php-fpm.d/zz-doc
 
 # Copy the application code and dependencies from the build stage
 COPY --from=builder /var/www /var/www
+COPY --from=builder /var/www/public /var/www/public-init
 
 # Set working directory
 WORKDIR /var/www
