@@ -15,15 +15,15 @@ class CustomersTable
     {
         return $table
             ->columns([
-                TextColumn::make('name')
+                TextColumn::make('name')->label('Ragione Sociale')
                     ->searchable(),
-                TextColumn::make('subname')
+                TextColumn::make('subname')->label('Descrizione')
                     ->searchable(),
-                TextColumn::make('tva')
+                TextColumn::make('tva')->label('P.Iva')
                     ->searchable(),
-                TextColumn::make('localita')
+                TextColumn::make('localita')->label('Località')
                     ->searchable(),
-                TextColumn::make('indirizzo')
+                TextColumn::make('indirizzo')->label('Indirizzo')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -38,7 +38,7 @@ class CustomersTable
                 //
             ])
             ->recordActions([
-                ViewAction::make(),
+                // ViewAction::make(),
                 EditAction::make(),
             ])
             ->toolbarActions([

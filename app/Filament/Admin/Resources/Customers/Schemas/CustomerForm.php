@@ -11,16 +11,12 @@ class CustomerForm
     {
         return $schema
             ->components([
-                TextInput::make('name')
+                TextInput::make('name')->label('Nome Cliente')
                     ->required(),
-                TextInput::make('subname')
-                    ->required(),
-                TextInput::make('tva')
-                    ->required(),
-                TextInput::make('localita')
-                    ->required(),
-                TextInput::make('indirizzo')
-                    ->required(),
+                TextInput::make('subname')->label('Descrizione'),
+                TextInput::make('tva')->label('P.Iva'),
+                TextInput::make('localita')->label('Località'),
+                TextInput::make('indirizzo')->label('Indirizzo'),
             ]);
     }
 }

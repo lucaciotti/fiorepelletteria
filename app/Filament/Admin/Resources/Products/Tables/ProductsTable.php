@@ -15,9 +15,9 @@ class ProductsTable
     {
         return $table
             ->columns([
-                TextColumn::make('code')
+                TextColumn::make('code')->label('Codice')
                     ->searchable(),
-                TextColumn::make('description')
+                TextColumn::make('description')->label('Descrizione')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -32,7 +32,7 @@ class ProductsTable
                 //
             ])
             ->recordActions([
-                ViewAction::make(),
+                // ViewAction::make(),
                 EditAction::make(),
             ])
             ->toolbarActions([

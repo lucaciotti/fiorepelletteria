@@ -33,7 +33,10 @@ class FormChoice extends Component implements HasActions, HasSchemas
     public function mount(): void
     {
         if (!Session::has('orderstat.form.groupType')) {
-            Session::put('orderstat.form.groupType', 'customer_id-ord_num-product_id-process_type_id-operator_id');
+            Session::put('orderstat.form.groupType', 'customer_id-number-product_id-process_type_id-operator_id');
+        }
+        if (Session::has('orderstat.form.groupType') && Session::get('orderstat.form.groupType') == 'customer_id-ord_num-product_id-process_type_id-operator_id') {
+            Session::put('orderstat.form.groupType', 'customer_id-number-product_id-process_type_id-operator_id');
         }
         $this->groupType = Session::get('orderstat.form.groupType');
         $this->products = Session::get('orderstat.form.filter.products') ?? [];
