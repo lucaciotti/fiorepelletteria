@@ -54,7 +54,7 @@ class WorkOrdersTable
                     ->label('Ordine Cliente')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('processType.description')
+                TextColumn::make('processType.full_descr')
                     ->label('Tipo Lavorazione')
                     ->sortable()
                     ->searchable(),

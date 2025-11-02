@@ -4,6 +4,7 @@ namespace App\Filament\Resources\WorkOrders\Schemas;
 
 use App\Models\Order;
 use App\Models\OrderRow;
+use App\Models\ProcessType;
 use DateTime;
 use Filament\Actions\Action;
 use Filament\Forms\Components\DateTimePicker;
@@ -52,7 +53,8 @@ class WorkOrderForm
                         ->required(),
                     Select::make('process_type_id')
                         ->label('Tipo Lavorazione')
-                        ->relationship('processType', 'description')
+                        ->options(ProcessType::all()->pluck('full_descr', 'id'))
+                        // ->relationship('processType', 'full_descr')
                         ->searchable()
                         ->preload()
                         ->required(),

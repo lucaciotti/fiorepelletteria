@@ -11,6 +11,16 @@ class ProcessType extends Model
         'id'
     ];
 
+    protected $appends = [
+        'full_descr',
+    ];
+
+    public function getFullDescrAttribute()
+    {
+        return $this->name . ' - ' . $this->description;
+    }
+
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(ProcessTypeCategory::class, 'process_type_category_id', 'id');
