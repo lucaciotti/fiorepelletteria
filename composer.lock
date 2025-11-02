@@ -3933,12 +3933,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucaciotti/filament-pwa.git",
-                "reference": "acc4c271e6216e0c4c644e854e0f958d83a0d4a8"
+                "reference": "0fd470cf7605f160b8501f8275414c9241d16520"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucaciotti/filament-pwa/zipball/acc4c271e6216e0c4c644e854e0f958d83a0d4a8",
-                "reference": "acc4c271e6216e0c4c644e854e0f958d83a0d4a8",
+                "url": "https://api.github.com/repos/lucaciotti/filament-pwa/zipball/0fd470cf7605f160b8501f8275414c9241d16520",
+                "reference": "0fd470cf7605f160b8501f8275414c9241d16520",
                 "shasum": ""
             },
             "require": {
@@ -3990,7 +3990,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-10-31T14:27:07+00:00"
+            "time": "2025-11-02T10:18:50+00:00"
         },
         {
             "name": "maatwebsite/excel",
