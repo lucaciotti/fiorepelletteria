@@ -19,7 +19,7 @@ fi
 if [  "$(ls -A /var/www/public-init)" ]; then
   echo "Deploying public directory..."
   cp -R /var/www/public-init/. /var/www/public
-  chown -R www-data:www-data /var/www/public
+  chown -fR www-data:www-data /var/www/public
 fi
 
 # Remove storage-init directory
