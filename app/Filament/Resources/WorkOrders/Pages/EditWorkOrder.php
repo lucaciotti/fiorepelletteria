@@ -51,12 +51,21 @@ class EditWorkOrder extends EditRecord
         // dd($this);  
         if ($data['end_at'] != null) {
             $total_minutes = 0;
+            $first_start_at = $data['start_at'];
+            $latest_end_at = $data['end_at'];
+            $delta_rows = 0;
+            $delta_tot_rows = count($this->data['recordsTime']);
+            $last_end_at = null;
             foreach ($this->data['recordsTime'] as $deltatime) {
+                $delta_rows ++;
+                $start_at = !empty($deltatime['start_at']) ? $deltatime['start_at'] : ($delta_rows == 1 ? $first_start_at : $last_end_at);
+                $end_at = !empty($deltatime['end_at']) ? $deltatime['end_at'] : ($delta_rows == $delta_tot_rows ? $latest_end_at : $start_at);
                 if(!empty($deltatime['total_minutes'])){
                     $total_minutes += $deltatime['total_minutes'];
                 } else {
-                    $total_minutes += round(Carbon::createFromDate($deltatime['start_at'])->diffInMinutes(Carbon::createFromDate($deltatime['end_at'])), 0);
+                    $total_minutes += round(Carbon::createFromDate($start_at)->diffInMinutes(Carbon::createFromDate($end_at)), 0);                        
                 }
+                $last_end_at = $end_at;
             }
             $data['total_minutes'] = $total_minutes;
         }
@@ -67,7 +76,7 @@ class EditWorkOrder extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            ViewAction::make(),
+            // ViewAction::make(),
             DeleteAction::make(),
         ];
     }

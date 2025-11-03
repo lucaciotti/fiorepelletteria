@@ -22,6 +22,7 @@ use Malzariey\FilamentDaterangepickerFilter\Filters\DateRangeFilter;
 use pxlrbt\FilamentExcel\Actions\ExportAction;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
 use Auth;
+use Filament\Schemas\Components\Utilities\Get;
 
 class WorkOrdersTable
 {
@@ -82,7 +83,7 @@ class WorkOrdersTable
                     ->sortable()->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('total_minutes')
                     ->label('Tempo Lavorazione (min.)')
-                    ->numeric()
+                    ->numeric()->hidden(fn(Get $get) => !Auth::user()->hasRole('admin') && !Auth::user()->hasRole('super_admin'))
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()

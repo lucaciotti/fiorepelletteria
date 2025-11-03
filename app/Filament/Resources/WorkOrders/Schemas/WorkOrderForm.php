@@ -49,6 +49,7 @@ class WorkOrderForm
                     Select::make('operator_id')
                         ->default($operator_id)
                         ->label('Operatore Lavorazione')
+                        ->disabled(fn(Get $get) => !Auth::user()->hasRole('admin') && !Auth::user()->hasRole('super_admin'))
                         ->relationship('operator', 'name')
                         ->required(),
                     Select::make('process_type_id')
@@ -63,7 +64,8 @@ class WorkOrderForm
                         ->required()
                         ->numeric(),
                 ]),
-                Fieldset::make('Tempi di produzione')->columns(3)
+                Fieldset::make('Tempi di produzione')->columns(fn(Get $get) => (!Auth::user()->hasRole('admin') && !Auth::user()->hasRole('super_admin')) ? 2 : 3)
+                    // ->hidden(fn(Get $get) => !Auth::user()->hasRole('admin') && !Auth::user()->hasRole('super_admin'))
                     ->schema([
                         DateTimePicker::make('start_at')
                             ->label('Inizio lavorazione')
@@ -76,9 +78,11 @@ class WorkOrderForm
                             ->readOnly(fn(Get $get) => !Auth::user()->hasRole('admin') && !Auth::user()->hasRole('super_admin')),
                         TextInput::make('total_minutes')
                             ->label('Totale tempo lavorazione (mm)')
+                            ->hidden(fn(Get $get) => !Auth::user()->hasRole('admin') && !Auth::user()->hasRole('super_admin'))
                             ->numeric(),
                     ]),
                 Section::make('Registro tempi lavorazione')->columns(1)->collapsed()->collapsible()
+                    // ->hidden(fn(Get $get) => !Auth::user()->hasRole('admin') && !Auth::user()->hasRole('super_admin'))
                     ->schema([
                         Repeater::make('recordsTime')->label('Registro tempi lavorazione')->columns(2)->deletable(false)->addable(false)->reorderable(false)->relationship()
                             ->schema([
@@ -177,7 +181,7 @@ class WorkOrderForm
                         ->icon('heroicon-m-clock')
                         ->color('danger')
                         ->requiresConfirmation()
-                        ->disabled(fn(Get $get) => $get('start_at')==null)
+                        ->disabled(fn(Get $get) => $get('start_at')==null || $get('paused') == true)
                         ->schema([
                             TextInput::make('quantity')->label('Quantità')
                                 ->required()
@@ -189,6 +193,9 @@ class WorkOrderForm
                             $records = $get('recordsTime');
                             end($records);         // move the internal pointer to the end of the array
                             $key = key($records);
+                            if (count($records) == 1) {
+                                $records[$key]['start_at'] = $get('start_at');
+                            }
                             $records[$key]['end_at'] = now()->format('Y-m-d H:i');
 ;                            // dd($records);
                             $set('recordsTime', $records);
