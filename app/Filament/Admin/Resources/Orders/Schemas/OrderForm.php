@@ -6,6 +6,8 @@ use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\ToggleButtons;
 use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -45,6 +47,7 @@ class OrderForm
                         ]),
                     DateTimePicker::make('date')->label('Data Ordine')
                         ->required(),
+                    Toggle::make('closed')->label('Ordine Chiuso')
                 ]),
                 Section::make('Righe')->collapsible()
                     ->schema([
@@ -69,6 +72,7 @@ class OrderForm
                                     ->visible()
                                     ->required()
                                     ->numeric(),
+                                Toggle::make('closed')->label('Riga Evasa')
                             ]),
                     ]),
             ]);

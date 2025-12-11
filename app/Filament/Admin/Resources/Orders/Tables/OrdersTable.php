@@ -7,6 +7,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class OrdersTable
@@ -23,7 +24,8 @@ class OrdersTable
                 TextColumn::make('date')->label('Data Ordine')
                     ->dateTime('d/m/Y')
                     ->sortable(),
-                TextColumn::make('count_product')->label('Numero Prodotti')
+                ToggleColumn::make('closed')->label('Ordine Chiuso'),
+                TextColumn::make('count_product')->label('Numero Righe da evadere')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')

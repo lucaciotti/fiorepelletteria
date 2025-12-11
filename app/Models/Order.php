@@ -14,11 +14,11 @@ class Order extends Model
     ];
         
     protected $appends = ['fulldescr'];
-    protected $casts= [
-            'date' => 'datetime:d/m/Y',
-            // 'created_at' => 'datetime:Y-m-d',
-            // 'created_at' => 'datetime:Y-m-d',
-        ];
+    // protected $casts= [
+    //         'date' => 'datetime:d/m/Y',
+    //         // 'created_at' => 'datetime:Y-m-d',
+    //         // 'created_at' => 'datetime:Y-m-d',
+    //     ];
 
     public function getFulldescrAttribute()
     {
@@ -27,7 +27,7 @@ class Order extends Model
 
     public function getCountProductAttribute()
     {
-        return count($this->rows);
+        return count($this->rows->where('closed', false));
     }
 
 

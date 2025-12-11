@@ -35,12 +35,12 @@ class WorkOrderForm
                     Select::make('order_id')
                         ->label('Ordine Cliente Rif.')
                         // ->relationship('order', 'number')
-                        ->options(Order::all()->pluck('fulldescr', 'id'))
+                        ->options(Order::where('closed', false)->get()->pluck('fulldescr', 'id'))
                         ->live()
                         ->required(),
                     Select::make('order_row_id')
                         ->label('Prodotto di Riferimento')
-                        ->options(fn(Get $get) => OrderRow::where('order_id', $get('order_id'))->get()->pluck('product.code', 'id'))
+                        ->options(fn(Get $get) => OrderRow::where('closed', false)->where('order_id', $get('order_id'))->get()->pluck('product.code', 'id'))
                         ->live()
                         ->required(),
                 ]),
