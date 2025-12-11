@@ -133,7 +133,7 @@ class WorkOrderForm
                         ->color('warning')
                         ->requiresConfirmation()
                         ->visible(fn(Get $get) => !$get('paused'))
-                        ->disabled(fn(Get $get) => $get('start_at')==null)
+                        ->disabled(fn(Get $get) => $get('end_at') != null)
                         ->action(function (Set $set, Get $get, $state, EditRecord $livewire) {
                             $records = $get('recordsTime');
                             end($records);         // move the internal pointer to the end of the array
@@ -157,7 +157,7 @@ class WorkOrderForm
                         ->color('success')
                         ->requiresConfirmation()
                         ->visible(fn(Get $get) => $get('paused'))
-                        ->disabled(fn(Get $get) => $get('start_at')==null)
+                        ->disabled(fn(Get $get) => $get('end_at')!=null)
                         ->action(function (Set $set, Get $get, $state, EditRecord $livewire) {
                             $records = $get('recordsTime');
                             end($records);         // move the internal pointer to the end of the array
@@ -202,7 +202,8 @@ class WorkOrderForm
                             $livewire->save();
                             // $this->saveOrCreate();
                         }),
-                ])->fullWidth(),
+                ])
+                ->hidden(fn(Get $get) => $get('start_at') == null || $get('end_at') != null)->fullWidth(),
             ]);
     }
 }

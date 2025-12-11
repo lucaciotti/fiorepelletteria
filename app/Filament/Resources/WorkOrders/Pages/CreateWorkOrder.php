@@ -40,8 +40,10 @@ class CreateWorkOrder extends CreateRecord
         //         ->keyBindings(['mod+s']);
         // }
         return Action::make('create')
-            ->label(__('filament-panels::resources/pages/create-record.form.actions.create.label'))
-            ->modalDescription('Al salvataggio verrà impostato l\'"Inizio Lavorazione". Prosegire?')
+            ->label('Avvia Lavorazione')
+            ->icon('heroicon-m-play-circle')
+            ->color('success')
+            ->modalDescription('Al salvataggio verrà impostato l\'"Inizio Lavorazione". Proseguire?')
             ->requiresConfirmation()
             ->action(fn() => $this->create())
             ->keyBindings(['mod+s']);

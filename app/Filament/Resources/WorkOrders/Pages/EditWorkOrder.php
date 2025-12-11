@@ -10,6 +10,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
+use Filament\Schemas\Components\Utilities\Get;
 
 class EditWorkOrder extends EditRecord
 {
@@ -40,7 +41,9 @@ class EditWorkOrder extends EditRecord
         }
 
         return Action::make('create')
-            ->label(__('filament-panels::resources/pages/create-record.form.actions.create.label'))
+            ->label('Salva Modifiche')
+            ->color('warning')
+            ->hidden(fn(Get $get) => $get('end_at') != null)
             // ->requiresConfirmation()
             ->action(fn() => $this->save())
             ->keyBindings(['mod+s']);
