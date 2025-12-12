@@ -101,7 +101,41 @@ class StatTable extends Component implements HasActions, HasSchemas, HasTable
             $records = array_merge($records, $this->_recordGroupBuilder($groupColumns, $originalGroupColumns));
             $groupColumns = array_slice($groupColumns, 0, -1);
         }
-        return collect($records)->sortBy(array_merge($originalGroupColumns, ['lvl']));
+        $data = collect($records)->sortBy(array_merge($originalGroupColumns, ['lvl']));
+        $data_reverse = $data->reverse();
+        $last_level='';
+        $avg_minutes=0;
+
+        $total_avg_minutes=[];
+        for ($i=count($originalGroupColumns); $i > 0 ; $i--) {
+            $total_avg_minutes[$i] = 0;
+        }
+        foreach ($data_reverse as $pos => $row) {
+            // if($row['lvl'] != $last_level){
+            //     if (!array_key_exists($row['lvl'], $total_avg_minutes)){
+            //         $total_avg_minutes[$row['lvl']] = 0;
+            //     }
+            //     if (intval($last_level)> intval($row['lvl'])){
+            //         $total_avg_minutes[$row['lvl']] += $total_avg_minutes[$last_level];
+            //         $total_avg_minutes[$last_level] = 0;
+            //     }
+            //     $last_level = $row['lvl'];
+            // }
+            if($row['lvl']==99){
+                $avg_minutes = round($row['total_minutes'] / $row['quantity'], 2);
+                $row['avg_minutes'] = $avg_minutes;
+                for ($i = count($originalGroupColumns); $i > 0; $i--) {
+                    $total_avg_minutes[$i] += $avg_minutes;
+                }
+            } else {
+                // dd($total_avg_minutes);
+                $row['avg_minutes'] = $total_avg_minutes[$row['lvl']];
+                $total_avg_minutes[$row['lvl']] = 0;
+            }
+            $data_reverse[$pos] = $row;
+        }
+        // dd($data_reverse);
+        return $data_reverse->reverse();
     }
 
     protected function _recordGroupBuilder($groupColumns, $originalGroupColumns): array
@@ -113,13 +147,18 @@ class StatTable extends Component implements HasActions, HasSchemas, HasTable
 
         $lvl = (count($groupColumns) == count($originalGroupColumns)) ? 99 : count($groupColumns);
         // $records = WorkOrder::selectRaw(implode(', ', $groupColumns) . ', ' . $lvl . ' as lvl, SUM(quantity) as quantity, SUM(total_minutes) as total_minutes, MIN(created_at) as created_at, MAX(end_at) as end_at')
-        
+        if ($lvl==99){
+            $selectRaw = implode(', ', $groupColumns) . ', ' . $lvl . ' as lvl, SUM(work_orders.quantity) as quantity, SUM(total_minutes) as total_minutes, 0 as avg_minutes, MIN(work_orders.created_at) as created_at, MAX(work_orders.end_at) as end_at';
+        } else {
+            $selectRaw = implode(', ', $groupColumns) . ', ' . $lvl . ' as lvl, 0 as quantity, 0 as total_minutes, 0 as avg_minutes, MIN(work_orders.created_at) as created_at, MAX(work_orders.end_at) as end_at';
+        }
+
         $records =  DB::table('work_orders')
             ->leftjoin('orders', 'orders.id', '=', 'work_orders.order_id')
             ->leftjoin('customers', 'customers.id', '=', 'orders.customer_id')
             ->leftjoin('order_rows', 'order_rows.id', '=', 'work_orders.order_row_id')
             ->leftjoin('products', 'products.id', '=', 'order_rows.product_id')
-            ->selectRaw(implode(', ', $groupColumns) . ', ' . $lvl . ' as lvl, SUM(work_orders.quantity) as quantity, SUM(total_minutes) as total_minutes, MIN(work_orders.created_at) as created_at, MAX(work_orders.end_at) as end_at')
+            ->selectRaw($selectRaw)
             ->where('end_at', '!=', null);
         if (!empty($products)){
             $records->whereIn('product_id', $products);
@@ -138,7 +177,9 @@ class StatTable extends Component implements HasActions, HasSchemas, HasTable
             return (array) $x;
         })->toArray();
 
-        // dd($data[0]['customer_id']);
+        // if(count($groupColumns) != count($originalGroupColumns)){
+        //     dd($data);
+        // }
         return $data;
     }
 
@@ -149,20 +190,34 @@ class StatTable extends Component implements HasActions, HasSchemas, HasTable
         $columnsGroup = [];
         $columnsAlways = [
             TextColumn::make('quantity')->label('Qta')
+                ->state(function ($record) {
+                    return $record['quantity']>0 ? $record['quantity'] : '';
+                })
                 ->numeric(),
             // ->state(function ($record) {
             //     return $record['lvl']==99 ? $record['quantity'] : '';
             // }),
             TextColumn::make('total_minutes')->label('Totale Minuti')
+                ->state(function ($record) {
+                    return $record['total_minutes'] > 0 ? $record['total_minutes'] : '';
+                })
                 ->numeric(),
-            TextColumn::make('avg_minutes')->label('Media Minuti')
+                TextColumn::make('avg_minutes')->label('Media Minuti / Pz')
                 ->numeric()
                 ->state(function ($record) {
-                    return $record['total_minutes'] ? round($record['total_minutes'] / $record['quantity'], 2) : 0;
+                    return $record['avg_minutes'] > 0 ? $record['avg_minutes'] : '';
                 }),
-            TextColumn::make('created_at')->label('Data Creazione')
-                ->dateTime()
-                ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('avg_minutes_trsl')->label('Media / Pz [h:m:s]')
+                ->state(function ($record) {
+                    return $record['avg_minutes'] > 0 ? sprintf('%02d:%02d:%02d', floor($record['avg_minutes'] / 60), $record['avg_minutes'] % 60,
+                    ($record['avg_minutes']-floor($record['avg_minutes']))*60) : '';
+                }),
+                // ->state(function ($record) {
+                //     return $record['total_minutes'] ? round($record['total_minutes'] / $record['quantity'], 2) : 0;
+                // }),
+            // TextColumn::make('created_at')->label('Data Creazione')
+            //     ->dateTime()
+            //     ->toggleable(isToggledHiddenByDefault: true),
         ];
         $columnGroupMapTitle = [];
 

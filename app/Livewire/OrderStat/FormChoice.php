@@ -33,10 +33,10 @@ class FormChoice extends Component implements HasActions, HasSchemas
     public function mount(): void
     {
         if (!Session::has('orderstat.form.groupType')) {
-            Session::put('orderstat.form.groupType', 'customer_id-number-product_id-process_type_id-operator_id');
+            Session::put('orderstat.form.groupType', 'customer_id-number-product_id-process_type_id');
         }
         if (Session::has('orderstat.form.groupType') && Session::get('orderstat.form.groupType') == 'customer_id-ord_num-product_id-process_type_id-operator_id') {
-            Session::put('orderstat.form.groupType', 'customer_id-number-product_id-process_type_id-operator_id');
+            Session::put('orderstat.form.groupType', 'customer_id-number-product_id-process_type_id');
         }
         $this->groupType = Session::get('orderstat.form.groupType');
         $this->products = Session::get('orderstat.form.filter.products') ?? [];
@@ -59,11 +59,11 @@ class FormChoice extends Component implements HasActions, HasSchemas
                     Select::make('groupType')
                     ->hiddenLabel(true)
                     ->options([
-                        'customer_id-number-product_id-process_type_id-operator_id' => 'Cliente -> n.Ord. -> Prodotto -> Lavorazioni -> Operatore',
+                        // 'customer_id-number-product_id-process_type_id-operator_id' => 'Cliente -> n.Ord. -> Prodotto -> Lavorazioni -> Operatore',
                         'customer_id-number-product_id-process_type_id' => 'Cliente -> n.Ord. -> Prodotto -> Lavorazioni ',
-                        'customer_id-number-product_id' => 'Cliente -> n.Ord. -> Prodotto',
-                        'customer_id-number' => 'Cliente -> n.Ord.',
-                        'product_id-process_type_id-operator_id' => 'Prodotto -> Lavorazioni -> Operatore',
+                        // 'customer_id-number-product_id' => 'Cliente -> n.Ord. -> Prodotto',
+                        // 'customer_id-number' => 'Cliente -> n.Ord.',
+                        // 'product_id-process_type_id-operator_id' => 'Prodotto -> Lavorazioni -> Operatore',
                         'product_id-process_type_id' => 'Prodotto -> Lavorazioni ',
                     ])
                     ->live(onBlur: true),
