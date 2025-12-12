@@ -86,6 +86,11 @@ class StatTable extends Component implements HasActions, HasSchemas, HasTable
         ->recordActions([
         ])
         ->toolbarActions([
+            // ExportAction::make()->exports([
+            //     ExcelExport::make('table')->fromTable()->only([
+            //         'customer',
+            //     ])->ignoreFormatting()->modifyQueryUsing(fn($query) => dd($query)),
+            // ]),
         ]);
 
         return $table;
