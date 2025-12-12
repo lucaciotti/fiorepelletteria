@@ -101,6 +101,10 @@ class WorkOrdersTable
                     ->relationship('customer', 'name')
                     ->searchable()
                     ->preload(),
+                SelectFilter::make('order')->label('Ordine Cliente')
+                    ->relationship('order', 'number')
+                    ->searchable()
+                    ->preload(),
                 SelectFilter::make('operator_id')->label('Operatore')
                     ->searchable()
                     ->options(fn(): array => Operator::query()->pluck('name', 'id')->all()),

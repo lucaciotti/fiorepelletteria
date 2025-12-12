@@ -21,7 +21,7 @@ class OrderStat extends Page
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
    
-    public static ?string $title = 'Statistiche Ordini';
+    public static ?string $title = 'Statistiche Lavorazioni';
 
     // public static function canAccess(): bool
     // {

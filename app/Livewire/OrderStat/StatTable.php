@@ -2,6 +2,7 @@
 
 namespace App\Livewire\OrderStat;
 
+use App\Filament\Resources\WorkOrders\WorkOrderResource;
 use App\Models\Customer;
 use App\Models\Operator;
 use App\Models\ProcessType;
@@ -146,11 +147,15 @@ class StatTable extends Component implements HasActions, HasSchemas, HasTable
         $operators = Session::get('orderstat.form.filter.operators') ?? [];
 
         $lvl = (count($groupColumns) == count($originalGroupColumns)) ? 99 : count($groupColumns);
+        $groupColumns = array_map(fn($v) => $v == 'order_id' ? 'work_orders.order_id' : $v, $groupColumns);
         // $records = WorkOrder::selectRaw(implode(', ', $groupColumns) . ', ' . $lvl . ' as lvl, SUM(quantity) as quantity, SUM(total_minutes) as total_minutes, MIN(created_at) as created_at, MAX(end_at) as end_at')
         if ($lvl==99){
             $selectRaw = implode(', ', $groupColumns) . ', ' . $lvl . ' as lvl, SUM(work_orders.quantity) as quantity, SUM(total_minutes) as total_minutes, 0 as avg_minutes, MIN(work_orders.created_at) as created_at, MAX(work_orders.end_at) as end_at';
         } else {
             $selectRaw = implode(', ', $groupColumns) . ', ' . $lvl . ' as lvl, 0 as quantity, 0 as total_minutes, 0 as avg_minutes, MIN(work_orders.created_at) as created_at, MAX(work_orders.end_at) as end_at';
+        }
+        if (in_array("work_orders.order_id", $groupColumns)){
+            $selectRaw .= ', MAX(orders.number) as number';
         }
 
         $records =  DB::table('work_orders')
@@ -206,7 +211,8 @@ class StatTable extends Component implements HasActions, HasSchemas, HasTable
                 ->numeric()
                 ->state(function ($record) {
                     return $record['avg_minutes'] > 0 ? $record['avg_minutes'] : '';
-                }),
+                })
+                ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('avg_minutes_trsl')->label('Media / Pz [h:m:s]')
                 ->state(function ($record) {
                     return $record['avg_minutes'] > 0 ? sprintf('%02d:%02d:%02d', floor($record['avg_minutes'] / 60), $record['avg_minutes'] % 60,
@@ -238,7 +244,7 @@ class StatTable extends Component implements HasActions, HasSchemas, HasTable
                 case 'product_id':
                     $state = $state . 'Prodotto';
                     break;
-                case 'number':
+                case 'order_id':
                     $state = $state . 'n.Ord.';
                     break;
                 default:
@@ -253,34 +259,150 @@ class StatTable extends Component implements HasActions, HasSchemas, HasTable
             TextColumn::make('raggruppamento')
                 ->state(function ($record) use ($columnGroupMapTitle) {
                     return $record['lvl'] != 99 ? $columnGroupMapTitle[$record['lvl']] : '';
-                }),
+                })
+                ->toggleable(isToggledHiddenByDefault: true),
         ];
 
         foreach ($originalGroupColumns as $value) {
             switch ($value) {
-                case 'number':
-                    array_push($columnsGroup, TextColumn::make('number')->label('n.Ord.'));
+                case 'order_id':
+                    array_push($columnsGroup, TextColumn::make('number')->label('n.Ord.')
+                        ->url(fn($record): string => WorkOrderResource::getUrl(
+                            'index',
+                            [
+                                'filters' => [
+                                    'customer' => [
+                                        'value' => $record['customer_id'] ?? null,
+                                    ],
+                                    'operator' => [
+                                        'value' => $record['operator_id'] ?? null,
+                                    ],
+                                    'product' => [
+                                        'value' => $record['product_id'] ?? null,
+                                    ],
+                                    'process_type_id' => [
+                                        'value' => $record['process_type_id'] ?? null,
+                                    ],
+                                    'order' => [
+                                        'value' => $record['order_id'] ?? null,
+                                    ],
+                                ],
+                            ],
+                            panel: 'app',
+                        ), true));
                     break;
                 case 'process_type_id':
                     array_push($columnsGroup, TextColumn::make('processType')->label('Lavorazione')
+                        ->url(fn($record): string => WorkOrderResource::getUrl(
+                            'index',
+                            [
+                                'filters' => [
+                                    'customer' => [
+                                        'value' => $record['customer_id']??null,
+                                    ],
+                                    'operator' => [
+                                        'value' => $record['operator_id']??null,
+                                    ],
+                                    'product' => [
+                                        'value' => $record['product_id']??null,
+                                    ],
+                                    'process_type_id' => [
+                                        'value' => $record['process_type_id']??null,
+                                    ],
+                                    'order' => [
+                                        'value' => $record['order_id']??null,
+                                    ],
+                                ],
+                            ],
+                            panel: 'app',
+                        ), true)
                         ->state(function ($record) {
                             return ProcessType::find($record['process_type_id'] ?? null)->description ?? '';
                         }));
                     break;
                 case 'customer_id':
                     array_push($columnsGroup, TextColumn::make('customer')->label('Cliente')
+                        ->url(fn($record): string => WorkOrderResource::getUrl(
+                            'index',
+                            [
+                                'filters' => [
+                                    'customer' => [
+                                        'value' => $record['customer_id'] ?? null,
+                                    ],
+                                    'operator' => [
+                                        'value' => $record['operator_id'] ?? null,
+                                    ],
+                                    'product' => [
+                                        'value' => $record['product_id'] ?? null,
+                                    ],
+                                    'process_type_id' => [
+                                        'value' => $record['process_type_id'] ?? null,
+                                    ],
+                                    'order' => [
+                                        'value' => $record['order_id'] ?? null,
+                                    ],
+                                ],
+                            ],
+                            panel: 'app',
+                        ), true)
                         ->state(function ($record) {
                             return Customer::find($record['customer_id'] ?? null)->name ?? '';
                         }));
                     break;
                 case 'operator_id':
                     array_push($columnsGroup, TextColumn::make('operator')->label('Operatore')
+                        ->url(fn($record): string => WorkOrderResource::getUrl(
+                            'index',
+                            [
+                                'filters' => [
+                                    'customer' => [
+                                        'value' => $record['customer_id'] ?? null,
+                                    ],
+                                    'operator' => [
+                                        'value' => $record['operator_id'] ?? null,
+                                    ],
+                                    'product' => [
+                                        'value' => $record['product_id'] ?? null,
+                                    ],
+                                    'process_type_id' => [
+                                        'value' => $record['process_type_id'] ?? null,
+                                    ],
+                                    'order' => [
+                                        'value' => $record['order_id'] ?? null,
+                                    ],
+                                ],
+                            ],
+                            panel: 'app',
+                        ), true)
                         ->state(function ($record) {
                             return Operator::find($record['operator_id'] ?? null)->name ?? '';
                         }));
                     break;
                 case 'product_id':
                     array_push($columnsGroup, TextColumn::make('product')->label('Prodotto')
+                        ->url(fn($record): string => WorkOrderResource::getUrl(
+                            'index',
+                            [
+                                'filters' => [
+                                    'customer' => [
+                                        'value' => $record['customer_id'] ?? null,
+                                    ],
+                                    'operator' => [
+                                        'value' => $record['operator_id'] ?? null,
+                                    ],
+                                    'product' => [
+                                        'value' => $record['product_id'] ?? null,
+                                    ],
+                                    'process_type_id' => [
+                                        'value' => $record['process_type_id'] ?? null,
+                                    ],
+                                    'order' => [
+                                        'value' => $record['order_id'] ?? null,
+                                    ],
+                                ],
+                            ],
+                            panel: 'app',
+                        ), true)
                         ->state(function ($record) {
                             return Product::find($record['product_id'] ?? null)->code ?? '';
                         }));
