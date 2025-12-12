@@ -69,9 +69,10 @@ class StatTable extends Component implements HasActions, HasSchemas, HasTable
             3 => 'row-group-lvl-3',
             4 => 'row-group-lvl-4',
             5 => 'row-group-lvl-5',
-            default => null,
+            default => 'row-group-lvl-99',
         })
         ->columns($columns)
+        ->deferColumnManager(false)
         ->filters([
         ], layout: FiltersLayout::Modal)->filtersTriggerAction(
             fn(Action $action) => $action
@@ -79,6 +80,7 @@ class StatTable extends Component implements HasActions, HasSchemas, HasTable
                 ->slideOver()
                 ->label(__('Filter')),
         )
+        ->deferFilters(false)
         ->headerActions([
         ])
         ->recordActions([

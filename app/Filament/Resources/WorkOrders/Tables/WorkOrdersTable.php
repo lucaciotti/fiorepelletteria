@@ -94,6 +94,7 @@ class WorkOrdersTable
                 //     ->sortable()
                 //     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->deferColumnManager(false)
             ->filters([
                 DateRangeFilter::make('start_at')->label('Data inizio lavorazione'),
                 DateRangeFilter::make('end_at')->label('Data inizio lavorazione'),
