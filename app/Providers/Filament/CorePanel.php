@@ -18,6 +18,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Support\Enums\Width;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use WatheqAlshowaiter\FilamentStickyTableHeader\StickyTableHeaderPlugin;
 
 class CorePanel extends Panel
 {
@@ -40,6 +41,10 @@ class CorePanel extends Panel
             // ->pages([
             //     Pages\Dashboard::class,
             // ])
+            ->plugins([
+                StickyTableHeaderPlugin::make(),
+
+            ])
             ->widgets([
                 Widgets\AccountWidget::class,
                 // Widgets\FilamentInfoWidget::class,
