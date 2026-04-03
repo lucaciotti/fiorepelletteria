@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libicu-dev \
     libzip-dev \
     zlib1g-dev \
-    libpng-dev 
+    libpng-dev
 RUN docker-php-ext-install -j$(nproc) \
     pdo_mysql \
     pdo_pgsql \
@@ -99,7 +99,12 @@ COPY --from=builder /usr/local/bin/docker-php-ext-* /usr/local/bin/
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 # Enable PHP-FPM status page by modifying zz-docker.conf with sed
-RUN sed -i '/\[www\]/a pm.status_path = /status' /usr/local/etc/php-fpm.d/zz-docker.conf
+# RUN sed -i '/\[www\]/a pm.status_path = /status' /usr/local/etc/php-fpm.d/zz-docker.conf
+RUN set -eux; \
+    { \
+    echo '[www]'; \
+    echo 'pm.status_path = /status'; \
+    } > /usr/local/etc/php-fpm.d/my-fpm.conf
 # Update the variables_order to include E (for ENV)
 #RUN sed -i 's/variables_order = "GPCS"/variables_order = "EGPCS"/' "$PHP_INI_DIR/php.ini"
 
