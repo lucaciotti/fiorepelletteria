@@ -3,8 +3,12 @@
 namespace App\Providers;
 
 use BezhanSalleh\PanelSwitch\PanelSwitch;
+use Filament\Actions\Action;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Livewire\Notifications;
+use Filament\Support\Enums\Alignment;
+use Filament\Tables\Table;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Support\ServiceProvider;
 use TomatoPHP\FilamentUsers\Filament\Resources\Users\Schemas\UserForm;
@@ -49,6 +53,30 @@ class AppServiceProvider extends ServiceProvider
             //     'config' => 'heroicon-o-star',
             // ], $asImage = false);
         });
+
+        Table::configureUsing(function (Table $table): void {
+            $table
+                ->reorderableColumns()
+                ->striped()
+                ->filtersTriggerAction(
+                    fn(Action $action) => $action
+                        ->slideOver()
+                        ->button(),
+                )
+                // ->columnManagerTriggerAction(
+                //     fn (Action $action) => $action
+                //         ->slideOver()
+                //         ->hiddenLabel(),
+                // )
+                // ->filtersLayout(FiltersLayout::AboveContentCollapsible)
+                ->paginationPageOptions([25, 50, 100])
+                ->defaultPaginationPageOption(50)
+                ->deferFilters(false)
+                ->deferColumnManager(false);
+        });
+
+        Notifications::alignment(Alignment::Center);
+        
         UserForm::register([
             Select::make('operator_id')
                 ->label('Operatore di Riferimento')
